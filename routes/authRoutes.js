@@ -69,14 +69,15 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
+    console.log("reached")
     if (err) throw err;
     if (!user) res.send(`${user}: No User Exists`);
     else {
       req.login(user, (err) => {
         if (err) throw err;
         // res.status(200);
+        console.log(req.user);
         res.send("Successfully Authenticated");
-        // console.log(req.user);
         // res.redirect(REDIRECT_URL);
       });
     }
