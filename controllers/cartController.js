@@ -6,7 +6,6 @@ exports.cart_list = function (req, res, next) {
   // Cart.find({ shopper: user })
     // .sort([['species', 'ascending']])
     .exec(function (err, list_cart) {
-      // console.log(req.body)
       if (err) { return next(err); }
       // Successful, so render.
       res.json({cart_list: list_cart});
