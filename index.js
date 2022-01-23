@@ -50,13 +50,13 @@ app.use(
 );
 
 app.use(cookieParser(process.env.COOKIE_PASSWORD))
-app.use("api/auth", authRoutes);
-app.use("api/foods", foodRoutes);
-app.use("api/cart", cartRoutes);
-app.use("api/orders", orderRoutes);
-app.use("api/sold", saleRoutes);
-app.use("api/user", userRoutes);
-app.use("api/favorite", favoriteRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/foods", foodRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/sold", saleRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/favorite", favoriteRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");
