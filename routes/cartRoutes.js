@@ -86,8 +86,8 @@ router.post("/create-checkout-session", async (req, res) => {
     success_redirect = `${process.env.URL_BASE_CLIENT}/cart_cleanup`
     cancel_redirect = `${process.env.URL_BASE_CLIENT}/cart`
   } else {
-    success_redirect = `farmcentral.store/cart_cleanup`
-    cancel_redirect = `farmcentral.store/cart`
+    success_redirect = `https://farmcentral.store/cart_cleanup`
+    cancel_redirect = `https://farmcentral.store/cart`
   }
 
   try {
