@@ -69,15 +69,17 @@ app.use(
 );
 
 console.log(os.hostname())
+// const url = await page.url();
+console.log(__dirname);
 
 app.use(cookieParser(process.env.COOKIE_PASSWORD))
 app.use("/auth", authRoutes);
 app.use("/foods", foodRoutes);
 app.use("/cart", cartRoutes);
+app.use("/favorite", favoriteRoutes);
 app.use("/orders", orderRoutes);
 app.use("/sold", saleRoutes);
 app.use("/user", userRoutes);
-app.use("/favorite", favoriteRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");

@@ -7,6 +7,7 @@ const Order = require('../models/order')
 const Food = require('../models/food')
 cart_controller = require("../controllers/cartController");
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
+// const url = require('url');
 
 const REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods`;
 
@@ -72,6 +73,21 @@ router.post("/create-checkout-session", async (req, res) => {
   // console.log("here2")
   // console.log(req.body.items)
   // console.log(req.body.user)
+  console.log("here1")
+  console.log(req.protocol)
+  console.log(req.get('host'))
+  console.log("here2")
+  let success_redirect
+  let cancel_redirect
+
+  if (req.get('host') === "localhost:5000") {
+    success_redirect = `${process.env.URL_BASE_CLIENT}/cart_cleanup`
+    cancel_redirect = `${process.env.URL_BASE_CLIENT}/cart`
+  } else {
+    success_redirect = `farmcentral.store/cart_cleanup`
+    cancel_redirect = `farmcentral.store/cart`
+  }
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
