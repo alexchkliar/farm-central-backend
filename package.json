@@ -36,6 +36,7 @@
     "stripe": "^8.195.0"
   },
   "devDependencies": {
+    "http-proxy-middleware": "^2.0.2",
     "nodemon": "^2.0.15"
   }
 }

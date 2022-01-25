@@ -15,6 +15,8 @@ const saleRoutes = require("./routes/saleRoutes");
 const userRoutes = require("./routes/userRoutes");
 const favoriteRoutes = require("./routes/favoriteRoutes");
 const bodyParser = require('body-parser')
+var os = require('os');
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 
@@ -26,6 +28,23 @@ mongoose.connect(
 // app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+
+// const options = {
+//   target: 'http://localhost:5000', // target host
+//   changeOrigin: true, // needed for virtual hosted sites
+//   ws: true, // proxy websockets
+//   pathRewrite: {
+//     '^/api': '', // rewrite path
+//   },
+// };
+
+// // create the proxy (without context)
+// const exampleProxy = createProxyMiddleware(options);
+// app.use('/api', exampleProxy);
+
+// app.use('/api', createProxyMiddleware({ target: 'http://localhost:5000/^', changeOrigin: true }));
+
+
 
 app.use(
   cookieSession({ name: "session", keys: ["temp_key"], maxAge: 24 * 60 * 60 * 100 })
@@ -48,6 +67,8 @@ app.use(
     credentials: true
   })
 );
+
+console.log(os.hostname())
 
 app.use(cookieParser(process.env.COOKIE_PASSWORD))
 app.use("/auth", authRoutes);
