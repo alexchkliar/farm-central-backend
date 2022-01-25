@@ -73,13 +73,13 @@ console.log(os.hostname())
 console.log(__dirname);
 
 app.use(cookieParser(process.env.COOKIE_PASSWORD))
-app.use("/api/auth", authRoutes);
-app.use("/api/foods", foodRoutes);
-app.use("/api/cart", cartRoutes);
-app.use("/api/favorite", favoriteRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/sold", saleRoutes);
-app.use("/api/user", userRoutes);
+app.use("/auth", authRoutes);
+app.use("/foods", foodRoutes);
+app.use("/cart", cartRoutes);
+app.use("/favorite", favoriteRoutes);
+app.use("/orders", orderRoutes);
+app.use("/sold", saleRoutes);
+app.use("/user", userRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");
