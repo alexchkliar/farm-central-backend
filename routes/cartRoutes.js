@@ -80,6 +80,8 @@ router.post("/create-checkout-session", async (req, res) => {
   let success_redirect
   let cancel_redirect
 
+  console.log(req.get('host'))
+
   if (req.get('host') === "localhost:5000") {
     success_redirect = `${process.env.URL_BASE_CLIENT}/cart_cleanup`
     cancel_redirect = `${process.env.URL_BASE_CLIENT}/cart`
@@ -104,8 +106,8 @@ router.post("/create-checkout-session", async (req, res) => {
           quantity: item.itemCartQuantity,
         }
       }),
-      success_url: `${process.env.URL_BASE_CLIENT}/cart_cleanup`,
-      cancel_url: `${process.env.URL_BASE_CLIENT}/cart`,
+      success_url: success_redirect,
+      cancel_url: cancel_redirect,
     })
 
     // if(session.payment_status != null) {
