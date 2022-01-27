@@ -9,8 +9,6 @@ cart_controller = require("../controllers/cartController");
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 // const url = require('url');
 
-const REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods`;
-
 router.post("/add", (req, res) => {
   const newCartProduct = new CartProduct({
     food: req.body.food,

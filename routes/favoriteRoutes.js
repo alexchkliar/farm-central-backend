@@ -3,8 +3,6 @@ const router = require("express").Router();
 const Favorite = require('../models/favorite')
 favorite_controller = require("../controllers/favoriteController");
 
-const REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods`;
-
 router.post("/add", (req, res) => {
   const newFavorite = new Favorite({
     food: req.body.food,

@@ -6,7 +6,6 @@ const session = require("express-session");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
-// const passportLocal = require("passport-local").Strategy;
 const authRoutes = require("./routes/authRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const cartRoutes = require("./routes/cartRoutes");
@@ -19,6 +18,13 @@ var os = require('os');
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
+let development = false;
+let prefix = ""
+
+if (os.hostname().substring(0,7) === "DESKTOP" ) {
+  development = true;
+  prefix = "/api"
+}
 
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/food_central?retryWrites=true`,
@@ -44,8 +50,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // app.use('/api', createProxyMiddleware({ target: 'http://localhost:5000/^', changeOrigin: true }));
 
-
-
 app.use(
   cookieSession({ name: "session", keys: ["temp_key"], maxAge: 24 * 60 * 60 * 100 })
 );
@@ -68,19 +72,17 @@ app.use(
   })
 );
 
-console.log(os.hostname())
-// const url = await page.url();
-console.log(__dirname);
-
 app.use(cookieParser(process.env.COOKIE_PASSWORD))
-app.use("/auth", authRoutes);
-app.use("/foods", foodRoutes);
-app.use("/cart", cartRoutes);
-app.use("/favorite", favoriteRoutes);
-app.use("/orders", orderRoutes);
-app.use("/sold", saleRoutes);
-app.use("/user", userRoutes);
+app.use(`${prefix}/auth`, authRoutes);
+app.use(`${prefix}/foods`, foodRoutes);
+app.use(`${prefix}/cart`, cartRoutes);
+app.use(`${prefix}/favorite`, favoriteRoutes);
+app.use(`${prefix}/orders`, orderRoutes);
+app.use(`${prefix}/sold`, saleRoutes);
+app.use(`${prefix}/user`, userRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");
 });
+
+module.exports = { development: development };

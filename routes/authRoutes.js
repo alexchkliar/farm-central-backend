@@ -2,11 +2,11 @@ const router = require("express").Router();
 const passport = require("passport");
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
-
-const REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods`;
+const development = require('../index');
+let REDIRECT_URL = `/foods`;
+if (development) { REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods` }
 
 router.get("/login/success", (req, res) => {
-  console.log(req.user)
   if (req.user) {
     res.status(200).json({
       success: true,
