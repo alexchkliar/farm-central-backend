@@ -16,9 +16,10 @@ module.exports = function(passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `/auth/google/callback`,
+        callbackURL: `${process.env.API_PATH}/auth/google/callback`,
       },
       function (accessToken, refreshToken, profile, done) {
+        console.log("HERE")
         console.log(profile)
 
         User.findOne({ google_sub_id: profile.id }, async (err, obj) => {

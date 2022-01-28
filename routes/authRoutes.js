@@ -34,11 +34,12 @@ router.get("/logout", (req, res) => {
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
 router.get(
-  "/google/callback",
+  "api/google/callback",
   passport.authenticate("google", {
     // successRedirect: REDIRECT_URL,
     failureRedirect: "/login/failed",
   }), function(req, res) {
+    console.log("in here");
     res.redirect(REDIRECT_URL);
   }
 );
