@@ -36,9 +36,12 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: REDIRECT_URL,
+    // successRedirect: REDIRECT_URL,
     failureRedirect: "/login/failed",
-  })
+  }), function(req, res) {
+    console.log("in here");
+    res.redirect(REDIRECT_URL);
+  }
 );
 
 // router.get("/facebook", passport.authenticate("facebook", { scope: ["profile"] }));
