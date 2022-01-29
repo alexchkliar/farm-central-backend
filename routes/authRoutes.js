@@ -2,8 +2,12 @@ const router = require("express").Router();
 const passport = require("passport");
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
-const development = require('../index');
+// const development = require('../index');
 let REDIRECT_URL = `/foods`;
+var os = require('os');
+if (os.hostname().substring(0,7) === "DESKTOP" ) {
+  REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods`;
+}
 // if (development) { REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods` }
 
 router.get("/login/success", (req, res) => {
@@ -28,6 +32,8 @@ router.get("/login/failed", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
+  // console.log(development)
+  // console.log(development === true)
   res.send("Logout succesful");
 });
 
