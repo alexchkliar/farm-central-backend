@@ -30,7 +30,8 @@ router.get("/logout", (req, res) => {
   req.logout();
   console.log("let's see here")
   console.log(REDIRECT_URL)
-  res.redirect(REDIRECT_URL);
+  res.send("inside here " + REDIRECT_URL);
+  // res.redirect(REDIRECT_URL);
 });
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
