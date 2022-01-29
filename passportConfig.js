@@ -16,7 +16,7 @@ module.exports = function(passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `${process.env.API_PATH}/auth/google/callback`,
+        callbackURL: `${process.env.API_PATH}/auth/google/callback`, // going to auth/google/callback, we need api/auth/google/callback
       },
       function (accessToken, refreshToken, profile, done) {
         console.log("HERE")

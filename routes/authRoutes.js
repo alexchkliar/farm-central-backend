@@ -28,6 +28,8 @@ router.get("/login/failed", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
+  console.log("let's see here")
+  console.log(REDIRECT_URL)
   res.redirect(REDIRECT_URL);
 });
 
