@@ -4,7 +4,7 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const development = require('../index');
 let REDIRECT_URL = `/foods`;
-if (development) { REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods` }
+// if (development) { REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods` }
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
@@ -36,12 +36,9 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    // successRedirect: REDIRECT_URL,
+    successRedirect: REDIRECT_URL,
     failureRedirect: "/login/failed",
-  }), function(req, res) {
-    console.log("in here");
-    res.redirect(REDIRECT_URL);
-  }
+  })
 );
 
 // router.get("/facebook", passport.authenticate("facebook", { scope: ["profile"] }));
