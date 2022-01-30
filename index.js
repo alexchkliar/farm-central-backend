@@ -6,6 +6,10 @@ const session = require("express-session");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const bodyParser = require('body-parser')
+var os = require('os');
+const app = express();
+
 const authRoutes = require("./routes/authRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const cartRoutes = require("./routes/cartRoutes");
@@ -13,10 +17,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const saleRoutes = require("./routes/saleRoutes");
 const userRoutes = require("./routes/userRoutes");
 const favoriteRoutes = require("./routes/favoriteRoutes");
-const bodyParser = require('body-parser')
-var os = require('os');
 // const { createProxyMiddleware } = require('http-proxy-middleware');
-const app = express();
 
 let development = false;
 let prefix = ""
@@ -86,3 +87,4 @@ app.listen("5000", () => {
 });
 
 // module.exports = { development: development };
+module.exports = app

@@ -7,6 +7,7 @@ const Food = require('./models/food')
 const User = require('./models/user')
 const Cart = require('./models/cart')
 const Order = require('./models/order')
+const Favorite = require('./models/favorite')
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose');
 const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/food_central`;
@@ -51,6 +52,9 @@ function deleteAllEntries(cb) {
     },
     function(callback) {
       deleteEntries(Order, callback);
+    },
+    function(callback) {
+      deleteEntries(Favorite, callback);
     },
     ],
     // optional callback
@@ -175,8 +179,8 @@ async.series([
     deleteAllEntries,
     createUsers,
     createFoods,
-    createFoods,
-    createFoods,
+    // createFoods,
+    // createFoods,
   ],
   function(err, results) {
     if (err) {

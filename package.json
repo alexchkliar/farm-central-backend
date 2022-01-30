@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "nodemon index.js --ignore './client/'",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "test": "jest --watchAll --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +39,8 @@
   },
   "devDependencies": {
     "http-proxy-middleware": "^2.0.2",
-    "nodemon": "^2.0.15"
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }
