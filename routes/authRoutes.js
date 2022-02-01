@@ -12,6 +12,7 @@ if (os.hostname().substring(0,7) === "DESKTOP" ) {
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
+    console.log(req.user)
     res.status(200).json({
       success: true,
       message: "successful",
@@ -60,6 +61,7 @@ router.get(
 router.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
+    console.log(doc)
     if (doc) res.send("User Already Exists");
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
