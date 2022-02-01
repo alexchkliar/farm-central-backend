@@ -8,8 +8,6 @@ router.get("/", food_controller.food_list)
 router.get("/:id/update", food_controller.selected_food)
 
 router.post("/new", (req, res) => {
-  console.log(req.body)
-
   const newFood = new Food({
     name: req.body.name,
     units: req.body.units,

@@ -19,9 +19,6 @@ router.post("/add", (req, res) => {
 });
 
 router.post("/create_order", (req, res) => {
-  console.log("right here")
-  console.log(req.body.items)
-  console.log(req.body.buyer)
   const newOrder = new Order({
     items: req.body.items,
     buyer: req.body.buyer,
@@ -31,8 +28,6 @@ router.post("/create_order", (req, res) => {
 });
 
 router.delete("/remove", (req, res) => {
-  // console.log(req.body.food._id)
-  // console.log(req.body.shopper)
   CartProduct.findOneAndDelete( {food: req.body.food._id, shopper: req.body.shopper._id}, (err) => {
     if (err) { console.log(err) }
   });
@@ -42,25 +37,17 @@ router.delete("/remove", (req, res) => {
 router.get("/fetch", cart_controller.cart_list)
 
 router.patch("/adjust", (req, res) => {
-  console.log("adjusting count")
-  console.log(req.body.cartItems)
-
   req.body.cartItems.forEach(item => {
 
     Food.findByIdAndUpdate(item.foodObj._id, { quantity: item.foodObj.quantity - item.itemCartQuantity }, {}, (err) => {
       if (err) { console.log(err); }
-      console.log("Updated cart instance")
     });
 
   });
-
-  console.log("done adjusting count")
   res.send("Adjusted cart content")
 });
 
 router.delete("/wipe", (req, res) => {
-  // console.log("howdy")
-  // console.log(req.body.shopper)
   CartProduct.deleteMany( { shopper: req.body.shopper._id }, (err) => {
     if (err) { console.log(err) }
   });
@@ -68,17 +55,8 @@ router.delete("/wipe", (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
-  // console.log("here2")
-  // console.log(req.body.items)
-  // console.log(req.body.user)
-  console.log("here1")
-  console.log(req.protocol)
-  console.log(req.get('host'))
-  console.log("here2")
   let success_redirect
   let cancel_redirect
-
-  console.log(req.get('host'))
 
   if (req.get('host') === "localhost:5000") {
     success_redirect = `${process.env.URL_BASE_CLIENT}/cart_cleanup`
@@ -107,12 +85,6 @@ router.post("/create-checkout-session", async (req, res) => {
       success_url: success_redirect,
       cancel_url: cancel_redirect,
     })
-
-    // if(session.payment_status != null) {
-    //   CartProduct.deleteMany( { shopper: req.body.user._id }, (err) => {
-    //     if (err) { console.log(err) }
-    //   });
-    // }
 
     res.json({ url: session.url })
   } catch (e) {

@@ -13,8 +13,6 @@ router.post("/add", (req, res) => {
 });
 
 router.delete("/remove", (req, res) => {
-  // console.log(req.body.food._id)
-  // console.log(req.body.shopper)
   Favorite.findOneAndDelete({food: req.body.food, shopper: req.body.shopper}, (err) => {
     if (err) { console.log(err) }
   });

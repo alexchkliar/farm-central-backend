@@ -12,7 +12,6 @@ if (os.hostname().substring(0,7) === "DESKTOP" ) {
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
-    console.log(req.user)
     res.status(200).json({
       success: true,
       message: "successful",
@@ -33,8 +32,6 @@ router.get("/login/failed", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  // console.log(development)
-  // console.log(development === true)
   res.send("Logout succesful");
 });
 
@@ -61,7 +58,6 @@ router.get(
 router.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
-    console.log(doc)
     if (doc) res.send("User Already Exists");
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -77,14 +73,12 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    console.log("reached")
     if (err) throw err;
     if (!user) res.send(`${user}: No User Exists`);
     else {
       req.login(user, (err) => {
         if (err) throw err;
         // res.status(200);
-        console.log(req.user);
         res.send("Successfully Authenticated");
         // res.redirect(REDIRECT_URL);
       });
@@ -93,7 +87,6 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/user", (req, res) => {
-  // console.log(req.body)
   res.send(req.user)
 });
 

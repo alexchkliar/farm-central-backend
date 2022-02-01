@@ -1,5 +1,4 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
 const localStrategy = require("passport-local").Strategy;
 const User = require("./models/user")
 const bcrypt = require("bcryptjs");
@@ -19,9 +18,6 @@ module.exports = function(passport) {
         callbackURL: `${process.env.API_PATH}/auth/google/callback`, // going to auth/google/callback, we need api/auth/google/callback
       },
       function (accessToken, refreshToken, profile, done) {
-        console.log("HERE")
-        console.log(profile)
-
         User.findOne({ google_sub_id: profile.id }, async (err, obj) => {
           if (err) throw err;
           if (!obj) {
@@ -87,15 +83,11 @@ module.exports = function(passport) {
   passport.serializeUser((user, done) => {
     const testUser = User.findOne({ google_sub_id: user.id }, (err, googleUser) => {
       const serializedUser = googleUser ? googleUser : user
-      // console.log("serializing")
-      // console.log(serializedUser)
       done(null, serializedUser);
     });
   });
 
   passport.deserializeUser((user, done) => {
-    // console.log("deserializing")
-    // console.log(user)
     done(null, user);
   });
 }
